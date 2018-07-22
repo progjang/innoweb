@@ -1,0 +1,11 @@
+db.sqlite3
+*.pyc
+*~
+media/
+__pycache__
+innoweb/
+/static
+.DS_Store
+.ipynb_checkpoints
+*.ipynb
+settings/static/images/

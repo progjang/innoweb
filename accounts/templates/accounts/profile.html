@@ -1,0 +1,69 @@
+{% extends "accounts/layout.html" %}
+
+{% block content %}
+    
+    <span class=' ml-5 label label-info'>Machines for </span> {{ user.profile.clinicname }}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                            {% if not devices %}
+                                관리자가 현재 준비중입니다.                           
+                            {% else %}
+                            <table>
+                                {% for device in devices %}
+
+                            <tbody id="device-panel">
+                            <tr>
+                                <td><a href="{% url "blog:resource_list" device.id %}"><img src="{{ device.photo.url }}" /></a></td>
+                                <td><a href="{% url "blog:resource_list" device.id %}">{{ device.name }}</a></td>
+                            </tr>
+                            </tbody>
+                            {% endfor %}
+                        </table>
+                            {% endif %}
+
+
+            </div>
+            <div class="col-sm-8">
+                <table class="table">
+                    <tr>
+                    <td>자료실</td>
+                    </tr>
+                    <tr>
+                    <td id="marketing-pos">왼쪽에서 장비를 선택하세요.</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block extra_body %}
+
+<script>
+$(function() {
+        console.log("웹페이지 로딩완료...");
+
+        $("#device-panel a").click(function(e){
+            e.preventDefault();
+            target_url = $(this).attr('href');
+            console.log(target_url);
+
+            $.get(target_url)
+            .done(function(html){
+                $('#marketing-pos').html(html);
+            })
+            .fail(function(xhr, textStatus, error){
+                console.log(textStatus);
+            }).
+            always(function(html){
+                console.log("always");
+                is_loading = false;
+            });
+        });
+});
+
+</script>
+{% endblock %}
