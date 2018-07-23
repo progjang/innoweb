@@ -14,7 +14,7 @@
 
                             <tbody id="device-panel">
                             <tr>
-                                <td><a href="{% url "blog:resource_list" device.id %}"><img src="{{ device.photo.url }}" /></a></td>
+                                <td><a href="{% url "blog:resource_list" device.id %}"><img src="{{ device.photo.url }}" style="max-length:70px;" /></a></td>
                                 <td><a href="{% url "blog:resource_list" device.id %}">{{ device.name }}</a></td>
                             </tr>
                             </tbody>
