@@ -11,11 +11,25 @@ class Post(models.Model):
     class Meta:
         ordering = ('-id',)
 
+class Maker(models.Model):
+    name = models.CharField(max_length=200)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('name', 'id')
+
+    def __str__(self):
+        return self.name
+
 class Device(models.Model):
+    maker = models.ForeignKey(Maker, on_delete=models.PROTECT)
     name = models.CharField(max_length=100)
     photo = models.ImageField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('maker', 'id')
 
     def __str__(self):
         return self.name

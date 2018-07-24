@@ -9,3 +9,4 @@ innoweb/
 .ipynb_checkpoints
 *.ipynb
 settings/static/images/
+settings/settings_dev.py
