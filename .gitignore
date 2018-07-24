@@ -10,3 +10,4 @@ innoweb/
 *.ipynb
 settings/static/images/
 settings/settings_dev.py
+manage.py
