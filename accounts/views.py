@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.views import PasswordResetView, LoginView
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, LoginView
 from django.http import Http404
 from django.utils.http import urlsafe_base64_decode
 #from django.contrib.auth.forms import UserCreationForm
@@ -15,7 +15,7 @@ from django.views.generic import CreateView
 from .models import Profile
 from blog.models import Device
 from django.core.mail import send_mail
-
+from django.urls import reverse_lazy
 # Create your views here.
 
 @login_required
@@ -81,13 +81,15 @@ class PlaceholderLoginView(LoginView):
 
 login = PlaceholderLoginView.as_view()
 
-
 class RequestLoginViaUrlView(PasswordResetView):
     template_name = 'accounts/request_login_via_url_form.html'
     title = '이메일을 통한 로그인'
     email_template_name = 'accounts/login_via_url.html'
     success_url = settings.LOGIN_URL
 
+    def form_valid(self, form):
+        messages.info(self.request, '이메일을 확인해주세요. 1회용 로그인 코드를 발송해드렸습니다.', extra_tags='alert')
+        return super().form_valid(form)
 
 def login_via_url(request, uidb64, token):
     User = get_user_model()
@@ -104,3 +106,21 @@ def login_via_url(request, uidb64, token):
 
     messages.error(request, '로그인이 거부되었습니다.')
     return redirect('root')
+
+class MyPasswordResetView(PasswordResetView):
+    success_url = reverse_lazy('login')
+    template_name = 'accounts/password_reset_form.html'
+    # email_template_name = ...
+    # html_email_template_name = ...
+
+    def form_valid(self, form):
+        messages.info(self.request, '이메일을 확인해주세요. 암호변경 코드를 발송해드렸습니다.', extra_tags='alert')
+        return super().form_valid(form)
+
+class MyPasswordResetConfirmView(PasswordResetConfirmView):
+    success_url = reverse_lazy('login')
+    template_name = 'accounts/password_reset_confirm.html'
+
+    def form_valid(self, form):
+        messages.info(self.request, '암호 변경을 완료했습니다.', extra_tags='alert')
+        return super().form_valid(form)

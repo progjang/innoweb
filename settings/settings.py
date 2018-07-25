@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 from django.urls import reverse_lazy
 from configparser import RawConfigParser
+from django.contrib.messages import constants as messages
 
 LOGOUT_REDIRECT_URL = reverse_lazy('login')
 
@@ -139,6 +140,14 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

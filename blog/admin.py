@@ -23,7 +23,7 @@ class DeviceAdmin(admin.ModelAdmin):
         return obj.maker.name
     
     def get_photo(self,obj):
-        img_url = "<img src=" + obj.photo.url + " />"
+        img_url = "<img src=" + obj.photo.url + " height='100' />"
         return mark_safe(img_url)
 
 @admin.register(Resource)

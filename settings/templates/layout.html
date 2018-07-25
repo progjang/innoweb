@@ -49,8 +49,13 @@
 
 {% endblock content_topbar %}
 
-{% block content %}
-{% endblock %}
+<main>
+  <div class="container">
+    {% include 'messages.html' %}
+    {% block content %}
+    {% endblock %}
+  </div>
+</main>
 
 {% block extra_body %}
 {% endblock %}
