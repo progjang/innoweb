@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <span class=' ml-5 label label-info'> {{ user.profile.clinicname }} </span>
+    <span class=' ml-5 label label-info'> {{ user.profile.clinicname }} / </span>
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
@@ -37,7 +37,6 @@
         </div>
     </div>
 
-
 {% endblock %}
 
 {% block extra_body %}
@@ -49,7 +48,6 @@ $(function() {
         $("#device-panel a").click(function(e){
             e.preventDefault();
             target_url = $(this).attr('href');
-            console.log(target_url);
 
             $.get(target_url)
             .done(function(html){
@@ -61,6 +59,7 @@ $(function() {
             always(function(html){
                 console.log("always");
                 is_loading = false;
+                $('html').scrollTop(0);
             });
         });
 });

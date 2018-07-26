@@ -26,7 +26,7 @@ def profile(request):
     devices = Device.objects.all().filter(name__in=device_list)
 
     return render(request, 'accounts/profile.html', {
-        'devices' : devices
+        'devices' : devices,
     })
 
 '''
