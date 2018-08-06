@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import timezone, timedelta, datetime
 # Create your models here.
 
 class Post(models.Model):
@@ -33,7 +33,14 @@ class Device(models.Model):
 
     def __str__(self):
         return self.name
-
+def upload_location(instance, filename):
+    tz = timezone(timedelta(hours=9)) # 9_timezone
+    dt = datetime.now(timezone.utc).astimezone(tz)
+    timestamp_month = dt.strftime("%Y-%m")
+    filebase,extension = filename.split(".")
+    filename = filebase + "_" + str(dt) + "." + extension
+    return "{}/{}".format(timestamp_month, filename)
+    
 class Resource(models.Model):
     CATEGORY_CHOICES = (
         ('M', '마케팅'),
@@ -43,7 +50,9 @@ class Resource(models.Model):
     category = models.CharField(max_length=1,
         choices=CATEGORY_CHOICES, default='M')
     device = models.ManyToManyField(Device)
-    contenturl = models.CharField(max_length=200)
+    resource = models.FileField(upload_to = upload_location,
+        null=True, blank=True)
+    contenturl = models.TextField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

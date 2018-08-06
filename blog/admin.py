@@ -28,7 +28,7 @@ class DeviceAdmin(admin.ModelAdmin):
 
 @admin.register(Resource)
 class ResourceAdmin(admin.ModelAdmin):
-    list_display = ['title', 'contenturl', 'created_at',]
+    list_display = ['category', 'title', 'resource', 'created_at',]
     list_display_links = ['title']
     search_fields = ['title']
 

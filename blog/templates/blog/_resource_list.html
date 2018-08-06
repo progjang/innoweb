@@ -1,7 +1,12 @@
 <ul>
 {% for resource in resource_list %}
-    <li>{{resource.category}} <a href="{{resource.contenturl}}" >{{resource.title}}</a>
-    {{resource.created_at |date:"Y/M/d" }}</li>
+
+{% if resource.resource %}
+    <li>{{resource.category}}
+        <a href="{{resource.resource.url}}">{{resource.title}}</a>
+        {{resource.created_at |date:"Y/M/d" }}
+    </li>
+{% endif %}
 
 {% endfor %}
 </ul>
