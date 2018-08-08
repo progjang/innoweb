@@ -2,29 +2,31 @@
 
 {% block content %}
 
-    <span class=' ml-5 label label-info'> {{ user.profile.clinicname }} / </span>
+    <span style="background-color: gold"> '{{ user.profile.clinicname }}'</span>님의 장비목록
+    <p></p>
     <div class="container">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                             {% if not devices %}
                                 관리자가 현재 준비중입니다.                           
                             {% else %}
-                            <table>
+                            <div class="row">
                                 {% for device in devices %}
+                                <div class="thumbnail">
+                                    <div id="device-panel" class="caption">
+                                        <a href="{% url "blog:resource_list" device.id %}"><img src="{{ device.photo.url }}" width="70" /></a><br />
+                                        <!-- <a href="{% url "blog:resource_list" device.id %}"><small>{{ device.name|truncatechars:14 }}</small></a> -->         
+                                    </div>
 
-                            <tbody id="device-panel">
-                            <tr>
-                                <td><a href="{% url "blog:resource_list" device.id %}"><img src="{{ device.photo.url }}" width="70" /></a></td>
-                                <td><a href="{% url "blog:resource_list" device.id %}">{{ device.name }}</a></td>
-                            </tr>
-                            </tbody>
-                            {% endfor %}
-                        </table>
+                                </div>
+                                {% cycle "" "<div class='col-sm-12'><hr /></div></div><div class='row'>" %}
+                                {% endfor %}
+                            </div>
                             {% endif %}
 
 
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
                 <table class="table">
                     <tr>
                     <td>자료실</td>

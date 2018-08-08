@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import timezone, timedelta, datetime
+import os
 # Create your models here.
 
 class Post(models.Model):
@@ -33,12 +34,13 @@ class Device(models.Model):
 
     def __str__(self):
         return self.name
+
 def upload_location(instance, filename):
     tz = timezone(timedelta(hours=9)) # 9_timezone
     dt = datetime.now(timezone.utc).astimezone(tz)
     timestamp_month = dt.strftime("%Y-%m")
-    filebase,extension = filename.split(".")
-    filename = filebase + "_" + str(dt) + "." + extension
+    filebase, extension = os.path.splitext(filename)
+    filename = filebase + "_" + str(dt) + extension
     return "{}/{}".format(timestamp_month, filename)
     
 class Resource(models.Model):

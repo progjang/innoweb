@@ -24,6 +24,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('blog/', include('blog.urls')),
     path('', lambda req: redirect('blog:post_list'), name='root'),
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
