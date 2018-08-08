@@ -26,12 +26,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 config = RawConfigParser()
-config.read('/etc/project/settings.ini')
+config.read('')
 
 SECRET_KEY = config.get('section', 'INNOWEB_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -153,10 +153,10 @@ MESSAGE_TAGS = {
 STATICFILES_STORAGE = 'settings.storages.StaticS3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'settings.storages.MediaS3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = config.get['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = config.get['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = config.get['AWS_STORAGE_BUCKET_NAME']
-AWS_S3_REGION_NAME = config.get['AWS_S3_REGION_NAME']
+AWS_ACCESS_KEY_ID = config.get('section','AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config.get('section','AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config.get('section','AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = config.get('section','AWS_S3_REGION_NAME')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
