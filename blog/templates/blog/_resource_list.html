@@ -1,12 +1,22 @@
-<ul>
+<table class="table table-bordered table-hover">
+<thead>
+    <tr>
+        <th>Category</th>
+        <th>Title</th>
+        <th>Updated at</th>
+    </tr>
+</thead>
+
 {% for resource in resource_list %}
-
+<tr>
 {% if resource.resource %}
-    <li>{{resource.category}}
-        <a href="{{resource.resource.url}}">{{resource.title}}</a>
-        {{resource.created_at |date:"Y/M/d" }}
-    </li>
+    <td>{{resource.category}}</td>
+    <td><a href="{{resource.resource.url}}">{{resource.title}}</a></td>
+    <td>{{resource.created_at |date:"Y/M/d" }}</td>
+{% else %}
+    <td colspan="3"> 아직 등록된 데이터가 없습니다. </td>
 {% endif %}
-
+</tr>
 {% endfor %}
-</ul>
+
+</table>
