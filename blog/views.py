@@ -12,8 +12,12 @@ class ResourceListView(ListView):
 
     def get_queryset(self):
         self.device = get_object_or_404(Device, id=self.kwargs['device_id'])
-        print(self.device)
         return Resource.objects.filter(device=self.device)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resource_device"] = self.device
+        return context
 
     def get_template_names(self):
         if not self.request.is_ajax():
