@@ -6,6 +6,8 @@
         <th>Updated at</th>
     </tr>
 </thead>
+<tbody>
+{% if resource_list %}
 
 {% for resource in resource_list %}
 <tr>
@@ -14,9 +16,15 @@
     <td><a href="{{resource.resource.url}}">{{resource.title}}</a></td>
     <td>{{resource.created_at |date:"Y/M/d" }}</td>
 {% else %}
-    <td colspan="3"> 아직 등록된 데이터가 없습니다. </td>
+    <td colspan="3"> 등록된 데이터가 없습니다. </td>
 {% endif %}
 </tr>
 {% endfor %}
 
+{% else %}
+<tr>
+    <td colspan="3">등록된 데이터가 아직 없습니다.</td>
+</tr>
+{% endif %}
+</tbody>
 </table>
