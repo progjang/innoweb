@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView
+from django.http import HttpResponse
 # Create your views here.
 
 from .models import Post, Device, Resource
@@ -26,3 +27,12 @@ class ResourceListView(ListView):
         return ['blog/_resource_list.html']
 
 resource_list = ResourceListView.as_view()
+
+def download_resource(self, pk):
+    resource = get_object_or_404(Resource, pk=pk)
+    print(pk)
+    filename = resource.resource.name.split('/')[-1]
+    print(filename)
+    response = HttpResponse(resource.resource, content_type='text/plain')
+    response['Content-Disposition'] = 'attachment; filename=%s' % filename
+    return response

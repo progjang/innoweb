@@ -4,7 +4,9 @@
     <tr>
         <th>Category</th>
         <th>Title</th>
+        <th>Download</th>
         <th>Updated at</th>
+
     </tr>
 </thead>
 <tbody>
@@ -14,17 +16,21 @@
 <tr>
 {% if resource.resource %}
     <td>{{resource.category}}</td>
-    <td><a href="{{resource.resource.url}}">{{resource.title}}</a></td>
+    <td>{{resource.title}}</td>
+    <td>
+        <a class="btn btn-info" href="{% url 'blog:download_resource' resource.pk %}">다운로드</a>
+    </td>
     <td>{{resource.created_at |date:"Y/M/d" }}</td>
-{% else %}
-    <td colspan="3"> 등록된 데이터가 없습니다. </td>
+
+    {% else %}
+    <td colspan="4"> 등록된 데이터가 없습니다. </td>
 {% endif %}
 </tr>
 {% endfor %}
 
 {% else %}
 <tr>
-    <td colspan="3">등록된 데이터가 아직 없습니다.</td>
+    <td colspan="4">등록된 데이터가 아직 없습니다.</td>
 </tr>
 {% endif %}
 </tbody>
