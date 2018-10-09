@@ -1,6 +1,6 @@
 from os.path import basename
 import requests
-from django.core.files import File
+from django.core.files.base import ContentFile
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, resolve_url
 from .decorators import bot
@@ -18,10 +18,10 @@ def on_message(request):
 
     if type == 'photo':
         img_url = content
-        res  = requests.get(img_url, stream=True)
+        img_data  = requests.get(img_url).content
         img_name = basename(img_url)
         post = KakaoPost(user=request.user)
-        post.photo.save(img_name, File(res.raw))
+        post.photo.save(img_name, ContentFile(img_data), save=False)
         post.save()
 
         response = '사진을 저장했습니다.'
@@ -37,7 +37,7 @@ def on_message(request):
             request.user.save()
             response = '암호를 설정했습니다.'
         else:
-            post = Post.objects.create(user=request.user, message=content)
+            post = KakaoPost.objects.create(user=request.user, message=content)
             response = '포스팅을 저장했습니다.'
 
     return {
