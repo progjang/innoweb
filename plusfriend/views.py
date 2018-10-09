@@ -4,7 +4,7 @@ from django.core.files import File
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, resolve_url
 from .decorators import bot
-from .models import Post
+from .models import KakaoPost
 
 @bot
 def on_init(request):
@@ -20,7 +20,7 @@ def on_message(request):
         img_url = content
         res  = requests.get(img_url, stream=True)
         img_name = basename(img_url)
-        post = Post(user=request.user)
+        post = KakaoPost(user=request.user)
         post.photo.save(img_name, File(res.raw))
         post.save()
 

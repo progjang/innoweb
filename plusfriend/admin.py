@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import KakaoPost
 # Register your models here.
 
 @admin.register(KakaoPost)
