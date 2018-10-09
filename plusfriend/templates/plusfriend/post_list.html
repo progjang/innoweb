@@ -1,0 +1,12 @@
+<ul>
+    {% for post in post_list %}
+    post
+    <li>
+    {% if post.photo %}
+            <img src="{{ post.photo.url }}" style="width: 100px;" />
+        {% else %}
+            {{ post.message }}
+        {% endif %}
+    </li>        
+    {% endfor %}
+</ul>

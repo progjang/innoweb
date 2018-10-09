@@ -7,7 +7,7 @@
 
     <h2>{{post.title}}</h2>
     <hr />
-    {{ post.content|linebreaks|safe }}
+    {{ post.content|safe|linebreaks }}
 
     <a href="{% url 'blog:post_list' %}" class="btn btn-primary">목록으로</a>
 </div>
